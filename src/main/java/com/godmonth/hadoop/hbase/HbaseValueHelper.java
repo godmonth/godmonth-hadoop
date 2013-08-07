@@ -32,7 +32,7 @@ public class HbaseValueHelper {
 		put.add(cf, Bytes.toBytes(propertyName), property != null ? Bytes.toBytes(property) : null);
 	}
 
-	public void putJsonString(ObjectMapper objectMapper, Put put, byte[] cf, Object bean, String propertyName,
+	public static void putJsonString(ObjectMapper objectMapper, Put put, byte[] cf, Object bean, String propertyName,
 			boolean replace) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException,
 			JsonProcessingException {
 		Object property = PropertyUtils.getProperty(bean, propertyName);
