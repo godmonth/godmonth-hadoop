@@ -22,15 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author shenyue
  */
 public class HbaseValueHelper {
-	public void putJsonString(ObjectMapper objectMapper, Put put, byte[] cf, Object bean, String propertyName,
-			boolean replace) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException,
-			JsonProcessingException {
-		Object property = PropertyUtils.getProperty(bean, propertyName);
-		if (!replace && property == null) {
-			return;
-		}
-		put.add(cf, Bytes.toBytes(propertyName), objectMapper.writeValueAsBytes(property));
-	}
 
 	public static void putString(Put put, byte[] cf, Object bean, String propertyName, boolean replace)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
@@ -39,6 +30,16 @@ public class HbaseValueHelper {
 			return;
 		}
 		put.add(cf, Bytes.toBytes(propertyName), property != null ? Bytes.toBytes(property) : null);
+	}
+
+	public void putJsonString(ObjectMapper objectMapper, Put put, byte[] cf, Object bean, String propertyName,
+			boolean replace) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException,
+			JsonProcessingException {
+		Object property = PropertyUtils.getProperty(bean, propertyName);
+		if (!replace && property == null) {
+			return;
+		}
+		put.add(cf, Bytes.toBytes(propertyName), objectMapper.writeValueAsBytes(property));
 	}
 
 	public static void fillString(Result result, byte[] cf, Object bean, String propertyName)
