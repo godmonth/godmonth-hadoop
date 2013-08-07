@@ -1,0 +1,4 @@
+godmonth-hadoop
+===============
+
+hadoop helper
